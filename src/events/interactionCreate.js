@@ -40,43 +40,45 @@ export async function handleInteraction(interaction) {
         let embedLog = new EmbedBuilder().setThumbnail(interaction.guild.iconURL());
         let canalEnvioId = '';
 
+        const timestamp = Math.floor(Date.now() / 1000);
+
         if (interaction.customId === 'modal_retirada') {
             canalEnvioId = config.CHANNELS.RETIRADA;
             embedLog.setTitle('📥 RELATÓRIO: RETIRADA DE ARMAMENTO').setColor('#2E7D32')
                 .addFields(
-                    { name: '👤 Policial / Graduação', value: \`\`\`text\\n\${nome}\\n\`\`\` },
-                    { name: '🔫 Armamentos Retirados', value: \`\`\`text\\n\${armas}\\n\`\`\` },
-                    { name: '🔋 Munições Retiradas', value: \`\`\`text\\n\${muni}\\n\`\`\` },
-                    { name: '🎒 Equipamentos Auxiliares', value: \`\`\`text\\n\${equip}\\n\`\`\` },
-                    { name: '📅 Horário e Data', value: \`<t:\${Math.floor(Date.now() / 1000)}:F> (<t:\${Math.floor(Date.now() / 1000)}:R>)\` }
+                    { name: '👤 Policial / Graduação', value: `\`\`\`text\n${nome}\n\`\`\`` },
+                    { name: '🔫 Armamentos Retirados', value: `\`\`\`text\n${armas}\n\`\`\`` },
+                    { name: '🔋 Munições Retiradas', value: `\`\`\`text\n${muni}\n\`\`\`` },
+                    { name: '🎒 Equipamentos Auxiliares', value: `\`\`\`text\n${equip}\n\`\`\`` },
+                    { name: '📅 Horário e Data', value: `<t:${timestamp}:F> (<t:${timestamp}:R>)` }
                 );
         } else if (interaction.customId === 'modal_devolucao') {
             canalEnvioId = config.CHANNELS.DEVOLUCAO;
             embedLog.setTitle('📤 RELATÓRIO: DEVOLUÇÃO DE ARMAMENTO').setColor('#1565C0')
                 .addFields(
-                    { name: '👤 Policial / Graduação', value: \`\`\`text\\n\${nome}\\n\`\`\` },
-                    { name: '🔫 Armamentos Devolvidos', value: \`\`\`text\\n\${armas}\\n\`\`\` },
-                    { name: '🔋 Munições Devolvidas', value: \`\`\`text\\n\${muni}\\n\`\`\` },
-                    { name: '🎒 Equipamentos Devolvidos', value: \`\`\`text\\n\${equip}\\n\`\`\` },
-                    { name: '📅 Horário e Data', value: \`<t:\${Math.floor(Date.now() / 1000)}:F> (<t:\${Math.floor(Date.now() / 1000)}:R>)\` }
+                    { name: '👤 Policial / Graduação', value: `\`\`\`text\n${nome}\n\`\`\`` },
+                    { name: '🔫 Armamentos Devolvidos', value: `\`\`\`text\n${armas}\n\`\`\`` },
+                    { name: '🔋 Munições Devolvidas', value: `\`\`\`text\n${muni}\n\`\`\`` },
+                    { name: '🎒 Equipamentos Devolvidos', value: `\`\`\`text\n${equip}\n\`\`\`` },
+                    { name: '📅 Horário e Data', value: `<t:${timestamp}:F> (<t:${timestamp}:R>)` }
                 );
         } else if (interaction.customId === 'modal_perda') {
             canalEnvioId = config.CHANNELS.PERDA;
             embedLog.setTitle('⚠️ RELATÓRIO: EXTRAVIO / PERDA DE MATERIAL').setColor('#C62828')
                 .addFields(
-                    { name: '👤 Policial / Graduação', value: \`\`\`text\\n\${nome}\\n\`\`\` },
-                    { name: '🔫 Armamentos Perdidos', value: \`\`\`text\\n\${armas}\\n\`\`\` },
-                    { name: '🔋 Munições Perdidas', value: \`\`\`text\\n\${muni}\\n\`\`\` },
-                    { name: '🎒 Equipamentos Perdidos', value: \`\`\`text\\n\hex\${equip}\\n\`\`\` },
-                    { name: '📅 Horário e Data', value: \`<t:\${Math.floor(Date.now() / 1000)}:F> (<t:\${Math.floor(Date.now() / 1000)}:R>)\` }
+                    { name: '👤 Policial / Graduação', value: `\`\`\`text\n${nome}\n\`\`\`` },
+                    { name: '🔫 Armamentos Perdidos', value: `\`\`\`text\n${armas}\n\`\`\`` },
+                    { name: '🔋 Munições Perdidas', value: `\`\`\`text\n${muni}\n\`\`\`` },
+                    { name: '🎒 Equipamentos Perdidos', value: `\`\`\`text\n${equip}\n\`\`\`` },
+                    { name: '📅 Horário e Data', value: `<t:${timestamp}:F> (<t:${timestamp}:R>)` }
                 );
         }
 
-        embedLog.setFooter({ text: \`Enviado por: \${interaction.user.tag}\`, iconURL: interaction.user.displayAvatarURL() });
+        embedLog.setFooter({ text: `Enviado por: ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() });
         const canal = interaction.guild.channels.cache.get(canalEnvioId);
         if (canal) {
             await canal.send({ embeds: [embedLog] });
-            await interaction.reply({ content: \`✅ Seu formulário foi registrado e enviado com sucesso para \${canal}!\`, ephemeral: true });
+            await interaction.reply({ content: `✅ Seu formulário foi registrado e enviado com sucesso para ${canal}!`, ephemeral: true });
         } else {
             await interaction.reply({ content: '❌ Erro: O canal configurado para este formulário não foi encontrado.', ephemeral: true });
         }
