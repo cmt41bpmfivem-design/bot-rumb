@@ -2,9 +2,29 @@ import { SlashCommandBuilder, ActionRowBuilder, StringSelectMenuBuilder, EmbedBu
 
 export const data = new SlashCommandBuilder()
     .setName('rumb')
-    .setDescription('Abre o painel de formulários do Arsenal.');
+    .setDescription('Abre o painel do Arsenal.');
 
 export async function execute(interaction) {
+
+    const CANAL_PERMITIDO = '1292571690903277728';
+    const CARGO_POLICIAL = '1292571689946841217';
+
+    
+    if (interaction.channelId !== CANAL_PERMITIDO) {
+        return interaction.reply({
+            content: '❌ Este comando só pode ser usado no canal da RUMB.',
+            ephemeral: true
+        });
+    }
+
+   
+    if (!interaction.member.roles.cache.has(CARGO_POLICIAL)) {
+        return interaction.reply({
+            content: '❌ Apenas policiais podem utilizar este comando.',
+            ephemeral: true
+        });
+    }
+
     const embed = new EmbedBuilder()
         .setTitle('📋 RUMB')
         .setDescription('Selecione abaixo o formulário correspondente à ação que deseja realizar no arsenal.')
