@@ -17,11 +17,30 @@ export async function execute(interaction) {
             .setCustomId('menu_formulario')
             .setPlaceholder('Escolha uma opção...')
             .addOptions([
-                { label: 'Retirada de Equipamento', description: 'Preencher ficha para retirar armamento.', value: 'form_retirada', emoji: '📥' },
-                { label: 'Devolução de Equipamento', description: 'Preencher ficha para devolver armamento.', value: 'form_devolucao', emoji: '📤' },
-                { label: 'Registro de Perda', description: 'Preencher ficha de extravio/perda de equipamento.', value: 'form_perda', emoji: '⚠️' }
+                {
+                    label: 'Retirada de Equipamento',
+                    description: 'Preencher ficha para retirar armamento.',
+                    value: 'form_retirada',
+                    emoji: '📥'
+                },
+                {
+                    label: 'Devolução de Equipamento',
+                    description: 'Preencher ficha para devolver armamento.',
+                    value: 'form_devolucao',
+                    emoji: '📤'
+                },
+                {
+                    label: 'Registro de Perda',
+                    description: 'Preencher ficha de extravio/perda de equipamento.',
+                    value: 'form_perda',
+                    emoji: '⚠️'
+                }
             ])
     );
 
-    await interaction.reply({ embeds: [embed], components: [menu], ephemeral: true });
+    await interaction.reply({
+        embeds: [embed],
+        components: [menu],
+        ephemeral: true
+    });
 }
