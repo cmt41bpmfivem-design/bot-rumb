@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, ActionRowBuilder, StringSelectMenuBuilder, EmbedBuilder } from 'discord.js';
 
 export const data = new SlashCommandBuilder()
-    .setName('formularios')
+    .setName('rumb')
     .setDescription('Abre o painel de formulários do Arsenal.');
 
 export async function execute(interaction) {
